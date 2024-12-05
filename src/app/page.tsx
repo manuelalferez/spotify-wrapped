@@ -41,21 +41,41 @@ interface SpotifyData {
   episode_show_name: string;
 }
 
+interface PlatformCount {
+  [key: string]: number;
+}
+
+interface ChartDataType {
+  platformData: Array<{ name: string; value: number }>;
+  countryData: Array<{ country: string; hours: number }>;
+  artistData: Array<{ artist: string; hours: number }>;
+  albumData: Array<{ album: string; hours: number }>;
+  listeningData: Array<{ month: string; hours: number }>;
+  listeningBehavior: {
+    totalSkips: number;
+    shuffleUsage: number;
+    offlineListening: number;
+    totalTracks: number;
+  };
+  topPodcasts: Array<{ show: string; hours: number }>;
+  hourlyListening: Array<{ hour: number; hours: number }>;
+}
+
 const PLATFORM_COLORS = {
   Computer: "#000000",
   Phone: "#147EFB",
   Other: "#808080",
-};
+} as const;
 
 export default function CombineJSONToCSV() {
   const [error, setError] = useState<string | null>(null);
   const [uploadedFiles, setUploadedFiles] = useState<string[]>([]);
-  const [chartData, setChartData] = useState<any>(null);
+  const [chartData, setChartData] = useState<ChartDataType | null>(null);
 
   const processData = (csvData: SpotifyData[]) => {
     // Platform distribution
-    const platformCounts = csvData.reduce((acc: any, curr) => {
-      let platform = curr.platform.toLowerCase();
+    const platformCounts = csvData.reduce((acc: PlatformCount, curr) => {
+      const platform = curr.platform.toLowerCase();
       let groupedPlatform;
       if (
         platform.includes("macos") ||
@@ -87,10 +107,13 @@ export default function CombineJSONToCSV() {
       .sort((a, b) => b.value - a.value);
 
     // Country data
-    const countryPlaytime = csvData.reduce((acc: any, curr) => {
-      acc[curr.conn_country] = (acc[curr.conn_country] || 0) + curr.ms_played;
-      return acc;
-    }, {});
+    const countryPlaytime = csvData.reduce(
+      (acc: Record<string, number>, curr) => {
+        acc[curr.conn_country] = (acc[curr.conn_country] || 0) + curr.ms_played;
+        return acc;
+      },
+      {},
+    );
 
     const countryData = Object.entries(countryPlaytime)
       .map(([country, ms]) => ({
@@ -101,13 +124,16 @@ export default function CombineJSONToCSV() {
       .slice(0, 10);
 
     // Artist data
-    const artistPlaytime = csvData.reduce((acc: any, curr) => {
-      if (curr.master_metadata_album_artist_name) {
-        acc[curr.master_metadata_album_artist_name] =
-          (acc[curr.master_metadata_album_artist_name] || 0) + curr.ms_played;
-      }
-      return acc;
-    }, {});
+    const artistPlaytime = csvData.reduce(
+      (acc: Record<string, number>, curr) => {
+        if (curr.master_metadata_album_artist_name) {
+          acc[curr.master_metadata_album_artist_name] =
+            (acc[curr.master_metadata_album_artist_name] || 0) + curr.ms_played;
+        }
+        return acc;
+      },
+      {},
+    );
 
     const artistData = Object.entries(artistPlaytime)
       .map(([artist, ms]) => ({
@@ -116,15 +142,17 @@ export default function CombineJSONToCSV() {
       }))
       .sort((a, b) => b.hours - a.hours)
       .slice(0, 5);
-
     // Album data
-    const albumPlaytime = csvData.reduce((acc: any, curr) => {
-      if (curr.master_metadata_album_album_name) {
-        acc[curr.master_metadata_album_album_name] =
-          (acc[curr.master_metadata_album_album_name] || 0) + curr.ms_played;
-      }
-      return acc;
-    }, {});
+    const albumPlaytime = csvData.reduce(
+      (acc: Record<string, number>, curr) => {
+        if (curr.master_metadata_album_album_name) {
+          acc[curr.master_metadata_album_album_name] =
+            (acc[curr.master_metadata_album_album_name] || 0) + curr.ms_played;
+        }
+        return acc;
+      },
+      {},
+    );
 
     const albumData = Object.entries(albumPlaytime)
       .map(([album, ms]) => ({
@@ -135,7 +163,7 @@ export default function CombineJSONToCSV() {
       .slice(0, 10);
 
     // Timeline data
-    const timeData = csvData.reduce((acc: any, curr) => {
+    const timeData = csvData.reduce((acc: Record<string, number>, curr) => {
       const monthYear = new Date(curr.ts).toISOString().slice(0, 7);
       acc[monthYear] = (acc[monthYear] || 0) + curr.ms_played;
       return acc;
@@ -159,7 +187,7 @@ export default function CombineJSONToCSV() {
     // Podcast data
     const podcastData = csvData
       .filter((item) => item.episode_show_name)
-      .reduce((acc: any, curr) => {
+      .reduce((acc: Record<string, number>, curr) => {
         acc[curr.episode_show_name] =
           (acc[curr.episode_show_name] || 0) + curr.ms_played;
         return acc;
@@ -174,11 +202,14 @@ export default function CombineJSONToCSV() {
       .slice(0, 5);
 
     // Time of day analysis
-    const timeOfDayData = csvData.reduce((acc: any, curr) => {
-      const hour = new Date(curr.ts).getHours();
-      acc[hour] = (acc[hour] || 0) + curr.ms_played;
-      return acc;
-    }, {});
+    const timeOfDayData = csvData.reduce(
+      (acc: Record<string, number>, curr) => {
+        const hour = new Date(curr.ts).getHours();
+        acc[hour] = (acc[hour] || 0) + curr.ms_played;
+        return acc;
+      },
+      {},
+    );
 
     const hourlyListening = Object.entries(timeOfDayData)
       .map(([hour, ms]) => ({
@@ -209,7 +240,7 @@ export default function CombineJSONToCSV() {
 
     setUploadedFiles(Array.from(files).map((file) => file.name));
 
-    let combinedData: Record<string, any>[] = [];
+    const combinedData: SpotifyData[] = [];
     let filesProcessed = 0;
 
     Array.from(files).forEach((file) => {
@@ -217,8 +248,8 @@ export default function CombineJSONToCSV() {
       reader.onload = (e) => {
         try {
           const jsonData = JSON.parse(e.target?.result as string);
-          combinedData = combinedData.concat(jsonData.flat());
-        } catch (error) {
+          combinedData.push(...jsonData.flat());
+        } catch (err) {
           showError(`Invalid JSON format in file: ${file.name}`);
         }
 
@@ -358,18 +389,16 @@ export default function CombineJSONToCSV() {
                       outerRadius={150}
                       label={({ name, value }) => `${name}: ${value} hours`}
                     >
-                      {chartData.platformData.map(
-                        (entry: any, index: number) => (
-                          <Cell
-                            key={`cell-${index}`}
-                            fill={
-                              PLATFORM_COLORS[
-                                entry.name as keyof typeof PLATFORM_COLORS
-                              ] || PLATFORM_COLORS.Other
-                            }
-                          />
-                        ),
-                      )}
+                      {chartData.platformData.map((entry, index) => (
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={
+                            PLATFORM_COLORS[
+                              entry.name as keyof typeof PLATFORM_COLORS
+                            ] || PLATFORM_COLORS.Other
+                          }
+                        />
+                      ))}
                     </Pie>
                     <Tooltip formatter={(value) => [`${value} hours`]} />
                   </PieChart>
