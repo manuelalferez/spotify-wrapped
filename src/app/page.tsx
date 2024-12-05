@@ -249,7 +249,7 @@ export default function CombineJSONToCSV() {
         try {
           const jsonData = JSON.parse(e.target?.result as string);
           combinedData.push(...jsonData.flat());
-        } catch (err) {
+        } catch {
           showError(`Invalid JSON format in file: ${file.name}`);
         }
 
