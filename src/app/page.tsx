@@ -1,7 +1,6 @@
 "use client";
 
 import { Alert } from "@/components/ui/alert";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -350,7 +349,7 @@ export default function CombineJSONToCSV() {
                   </h3>
                   <p className="text-white mb-4 text-xl">
                     Explore your most-listened artists and see how many hours
-                    you've spent with your favorite musicians
+                    you have spent with your favorite musicians
                   </p>
                   <img
                     src="https://ik.imagekit.io/manuelalferez/manuel/SCR-20241207-jvpf_JOCBTIYBh.png?updatedAt=1733564946141"
@@ -459,7 +458,7 @@ export default function CombineJSONToCSV() {
                             >
                               Spotify Privacy Settings
                             </a>{" "}
-                            and request "Extended streaming history"
+                            and request &quot;Extended streaming history&quot;
                           </p>
                         </div>
                       </div>
@@ -479,7 +478,7 @@ export default function CombineJSONToCSV() {
                           Wait for Email
                         </h3>
                         <p className="text-gray-300">
-                          You'll receive an email from Spotify within 1-3 days
+                          You will receive an email from Spotify within 1-3 days
                           with a download link for your data
                         </p>
                       </div>
