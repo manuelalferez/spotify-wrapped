@@ -446,10 +446,10 @@ export default function CombineJSONToCSV() {
                           1
                         </div>
                         <div>
-                          <h3 className="text-white font-medium mb-1">
+                          <h3 className="text-white font-medium mb-1 text-xl">
                             Request Your Data
                           </h3>
-                          <p className="text-gray-300">
+                          <p className="text-gray-300 text-lg">
                             Visit{" "}
                             <a
                               href="https://www.spotify.com/us/account/privacy/"
@@ -474,29 +474,36 @@ export default function CombineJSONToCSV() {
                         2
                       </div>
                       <div>
-                        <h3 className="text-white font-medium mb-1">
+                        <h3 className="text-white font-medium mb-1 text-xl">
                           Wait for Email
                         </h3>
-                        <p className="text-gray-300">
+                        <p className="text-gray-300 text-lg">
                           You will receive an email from Spotify within 1-3 days
                           with a download link for your data
                         </p>
                       </div>
                     </div>
 
-                    <div className="flex items-start gap-4 p-4 rounded-lg bg-[#282828] hover:bg-[#303030] transition-colors duration-200">
-                      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#1DB954] flex items-center justify-center text-black font-bold">
-                        3
+                    <div className="flex flex-col items-start gap-4 p-4 rounded-lg bg-[#282828] hover:bg-[#303030] transition-colors duration-200">
+                      <div className="flex items-start gap-4 w-full">
+                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#1DB954] flex items-center justify-center text-black font-bold">
+                          3
+                        </div>
+                        <div>
+                          <h3 className="text-white font-medium mb-1 text-xl">
+                            Upload Your Files
+                          </h3>
+                          <p className="text-gray-300 text-lg">
+                            Download and extract the ZIP file, then upload the
+                            JSON files below to visualize your listening history
+                          </p>
+                        </div>
                       </div>
-                      <div>
-                        <h3 className="text-white font-medium mb-1">
-                          Upload Your Files
-                        </h3>
-                        <p className="text-gray-300">
-                          Download and extract the ZIP file, then upload the
-                          JSON files below to visualize your listening history
-                        </p>
-                      </div>
+                      <img
+                        src="https://ik.imagekit.io/manuelalferez/manuel/files-spotify_mq_jkyL3M.png"
+                        alt="How to request Spotify data step 3"
+                        className="w-3/4 mx-auto rounded-lg"
+                      />
                     </div>
                   </div>
                 </CardContent>
