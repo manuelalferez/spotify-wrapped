@@ -1,5 +1,4 @@
-# 🎵 Spotify Wrapped Deep Dive
-
+# 🎵 Spotify Wrapped
 Want to go beyond basic Spotify Wrapped? Unlock rich insights and detailed analytics about your musical journey, discovering patterns you never knew existed.
 
 ![Spotify Wrapped Deep Dive](https://ik.imagekit.io/manuelalferez/portfolio/projects/SCR-20241217-kbki_u7ECEm_Lf.png?updatedAt=1734429919939)
