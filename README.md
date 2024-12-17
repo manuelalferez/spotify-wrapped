@@ -42,10 +42,6 @@ npm run dev
 
 Then open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
 
-## 👨‍💻 Created by
-
-Manuel Alférez
-
 ## 📝 License
 
 This project is licensed under the Non-Commercial License - see the [LICENSE](LICENSE) file for details.
