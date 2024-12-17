@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎵 Spotify Wrapped Deep Dive
 
-## Getting Started
+Want to go beyond basic Spotify Wrapped? Unlock rich insights and detailed analytics about your musical journey, discovering patterns you never knew existed.
 
-First, run the development server:
+![Spotify Wrapped Deep Dive](https://ik.imagekit.io/manuelalferez/portfolio/projects/SCR-20241217-kbki_u7ECEm_Lf.png?updatedAt=1734429919939)
 
+## ✨ Features
+
+- 📊 **Timeline View**: Visualize your listening history and discover music trends
+- 🎧 **Listening Insights**: Understand your shuffle, skip rates and offline listening patterns
+- 🌟 **Artist Analytics**: Deep dive into your favorite artists and listening time
+- ⏰ **Activity Patterns**: See when you listen to music most with hourly breakdowns
+- 📱 **Platform Usage**: Track which devices you use for streaming
+- 🎪 **Extra Features**: Podcast analytics, geographic patterns, and more
+
+## 🚀 Quick Start
+
+1. Request your Spotify data from account settings
+2. Upload the JSON files when received
+3. Start exploring your musical journey!
+
+## 💻 Development
+
+### 1. Clone the repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/manuelalferez/spotify-wrapped.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Navigate to the project directory
+```bash
+cd spotify-wrapped
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Install dependencies
+```bash
+npm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 4. Start the development server
+```bash
+npm run dev
+```
 
-## Learn More
+Then open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
 
-To learn more about Next.js, take a look at the following resources:
+## 👨‍💻 Created by
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Manuel Alférez
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📝 License
 
-## Deploy on Vercel
+This project is licensed under the Non-Commercial License - see the [LICENSE](LICENSE) file for details.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Copyright © 2024 - All rights reserved
